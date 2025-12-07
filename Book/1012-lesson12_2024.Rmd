@@ -326,7 +326,7 @@ s5 <- s4 +
   ggplot2::geom_line(data = df.match.plot,
                      aes(x = conds, y = RT_mean, group = Sub),
                      linetype = 1,
-                     size=0.8,
+                     linewidth=0.8,
                      color="#000000",
                      alpha=0.1)
 
@@ -350,7 +350,7 @@ s6 <- s1 +
                          group = as.factor(Sub)),
                      position = position_dodge(0.08),
                      linetype = 1,
-                     size=0.8,
+                     linewidth=0.8,
                      color="#000000",
                      alpha=0.05) +
   ggplot2::labs(y = "RT")
@@ -391,7 +391,7 @@ s8 <- s7 +
                          group = as.factor(Sub)),
                      position = position_dodge(0.08),
                      linetype = 1,
-                     size=0.8,
+                     linewidth=0.8,
                      color="#000000",
                      alpha=0.05) +
   ggplot2::labs(y = "ACC")
@@ -428,7 +428,7 @@ ggplot2::ggsave(filename = "./pic/chp12/p1.pdf",
 #此处选择12个被试是为了在展示的时候更清晰
 sublist <- unique(df.match.trial$Sub)
 target2 <- df.match.trial %>% 
-  dplyr::filter(Sub == sublist[1:12]) %>%
+  dplyr::filter(Sub %in% sublist[1:12]) %>%
   dplyr::mutate(Label = factor(Label, 
                                levels = c("moralSelf", "moralOther", "immoralSelf", "immoralOther")),
                 Sub = factor(Sub))
@@ -445,7 +445,7 @@ model <- lme4::lmer(data = target2,
 ranef_df <- as.data.frame(ranef(model)$Sub) %>%
   dplyr::mutate(Sub = row.names(.)) %>%
   dplyr::rename(Intercept = "(Intercept)") %>%
-  dplyr::mutate(se = sqrt(diag(vcov(model))[1]),
+  dplyr::mutate(se = sqrt(vcov(model)[1, 1]),
                 lower = Intercept - 1.96 *se,
                 upper = Intercept + 1.96 *se) %>%
   dplyr::arrange(Intercept) %>%

@@ -1,0 +1,10 @@
+name: Book
+title:
+username: hcp4715
+account: hcp4715
+server: connect.posit.cloud
+hostUrl: https://api.connect.posit.cloud/v1
+appId: 019af6b8-c5a2-898e-6e5b-812615d65ef3
+bundleId:
+url:
+version: 1
